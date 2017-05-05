@@ -32,6 +32,7 @@ public class Lab3_CarlosVelasquez {
         }else{
             switch (menuSel) {
                 case 1:
+                    System.out.println("Menú de Equipos");
                     do{
                         int menuSel2;
                         entrada = new Scanner(System.in);
@@ -41,7 +42,7 @@ public class Lab3_CarlosVelasquez {
                         System.out.println("[3] Administrar Equipos");
                         System.out.println("[4] Eliminar Equipo");
                         System.out.println("[5] Menú Principal");
-                        System.out.println("\n¿Que desea hacer? - ");
+                        System.out.print("\n¿Que desea hacer? - ");
                         menuSel2 = entrada.nextInt();
                         System.out.println("-   -   -   -   -   -   -   -   -   -");
                         
@@ -61,6 +62,45 @@ public class Lab3_CarlosVelasquez {
                                     break;
                                 case 4:
                                     eliminarEquipo();
+                                    break;
+                                default:
+                                    System.out.println("[ERROR] Número de opción inválido.");
+                                    break;
+                            }
+                        }
+                    }while(true);
+                    break;
+                case 2:
+                    System.out.println("Menú de Jugadores");
+                    do{
+                        int menuSel2;
+                        entrada = new Scanner(System.in);
+                        System.out.println("-   -   -   -   -   -   -   -   -   -");
+                        System.out.println("[1] Listar Jugadores");
+                        System.out.println("[2] Crear Nuevo Jugador");
+                        System.out.println("[3] Modificar Jugador");
+                        System.out.println("[4] Eliminar Jugador");
+                        System.out.println("[5] Menú Principal");
+                        System.out.print("\n¿Que desea hacer? - ");
+                        menuSel2 = entrada.nextInt();
+                        System.out.println("-   -   -   -   -   -   -   -   -   -");
+                        
+                        if (menuSel2 == 5) {
+                            System.out.println("Saliendo...");
+                            break;
+                        }else{
+                            switch (menuSel2) {
+                                case 1:
+                                    listarJugadores();
+                                    break;
+                                case 2:
+                                    crearJugador();
+                                    break;
+                                case 3:
+                                    modificarJugador();
+                                    break;
+                                case 4:
+                                    eliminarJugador();
                                     break;
                                 default:
                                     System.out.println("[ERROR] Número de opción inválido.");
@@ -117,79 +157,156 @@ public class Lab3_CarlosVelasquez {
         boolean sel = true;
         Equipo eq = new Equipo();
         
-        do{
-            if (sel == true) {
-                for (int i = 0; i < equipos.size(); i++) {
-                    System.out.println("[" + (i+1) + "] " + equipos.get(i).getNombre());
-                }
-                
-                System.out.print("\n¿Que equipo desea administrar? - ");
-                int eqSel = entrada.nextInt();
-                eqSel--;
-                
-                if (eqSel < 0 && eqSel >= equipos.size()) {
-                    System.out.println("[ERROR] El número ingresado no corresponde a ningún equipo.");
-                }else{
-                    eq = equipos.get(eqSel);
-                    sel = false;
-                    System.out.println("Equipo [" + eq.getNombre() + "] seleccionado.");
-                }
-            }else{
-                entrada = new Scanner(System.in);
-                System.out.println("-   -   -   -   -   -   -   -   -   -");
-                System.out.println("[1] Comprar Jugador");
-                System.out.println("[2] Organizar Equipo");
-                System.out.println("[3] Cambiar de Equipo");
-                System.out.println("[4] Regresar a Menú de Equipos");
-                System.out.println("\n¿Que desea hacer? - ");
-                int menuSel = entrada.nextInt();
-                System.out.println("-   -   -   -   -   -   -   -   -   -");
+        try{
+            do{
+                if (sel == true) {
+                    for (int i = 0; i < equipos.size(); i++) {
+                        System.out.println("[" + (i+1) + "] " + equipos.get(i).getNombre());
+                    }
 
-                if (menuSel == 4) {
-                    System.out.println("Saliendo...");
-                    break;
+                    System.out.print("\n¿Que equipo desea administrar? - ");
+                    int eqSel = entrada.nextInt();
+                    eqSel--;
+
+                    if (eqSel < 0 || eqSel >= equipos.size()) {
+                        System.out.println("[ERROR] El número ingresado no corresponde a ningún equipo.");
+                    }else{
+                        eq = equipos.get(eqSel);
+                        sel = false;
+                        System.out.println("Equipo [" + eq.getNombre() + "] seleccionado.");
+                    }
                 }else{
-                    switch (menuSel) {
-                        case 1:
-                            int contAv = 1;
-                            ArrayList<Jugador> jugDisp = new ArrayList();
-                            
-                            System.out.println("Jugadores Disponibles\n"
-                                    + "No. | Nombre | Apellido | Edad | País de Nacimiento | Pie Preferido | Precio | Rol | \n");
-                            for (Jugador j : jugadores) {
-                                if(j.estado == false){
-                                    System.out.println(" | " + contAv + j.toStringCont());
-                                    jugDisp.add(j);
-                                    contAv++;
+                    entrada = new Scanner(System.in);
+                    System.out.println("-   -   -   -   -   -   -   -   -   -");
+                    System.out.println("[1] Comprar Jugador");
+                    System.out.println("[2] Organizar Equipo");
+                    System.out.println("[3] Cambiar de Equipo");
+                    System.out.println("[4] Regresar a Menú de Equipos");
+                    System.out.print("\n¿Que desea hacer? - ");
+                    int menuSel = entrada.nextInt();
+                    System.out.println("-   -   -   -   -   -   -   -   -   -");
+
+                    if (menuSel == 4) {
+                        System.out.println("Saliendo...");
+                        break;
+                    }else{
+                        switch (menuSel) {
+                            case 1:
+                                int contAv = 1;
+                                ArrayList<Jugador> jugDisp = new ArrayList();
+
+                                System.out.println("Jugadores Disponibles\n"
+                                        + "No. | Nombre | Apellido | Edad | País de Nacimiento | Pie Preferido | Precio | Rol | \n");
+                                for (Jugador j : jugadores) {
+                                    if(j.estado == false){
+                                        System.out.println(" | " + contAv + j.toStringCont());
+                                        jugDisp.add(j);
+                                        contAv++;
+                                    }
                                 }
-                            }
-                            
-                            System.out.print("\n¿Que jugador desea contratar? (0 para abortar) - ");
-                            int jugSel = entrada.nextInt();
-                            System.out.println("");
-                            
-                            if(jugSel == 0){
-                                System.out.println("Saliendo...");
-                                break;
-                            }else{
-                                contAv--;
-                                if (jugSel < 0 || (jugSel != 0 && jugSel >= jugDisp.size())) {
-                                    System.out.println("[ERROR] El número ingresado supera la lista.");
+
+                                System.out.print("\n¿Que jugador desea contratar? (0 para abortar) - ");
+                                int jugSel = entrada.nextInt();
+                                System.out.println("");
+
+                                if(jugSel == 0){
+                                    System.out.println("Saliendo...");
+                                    break;
                                 }else{
-                                    eq.getJugadores();
+                                    contAv--;
+                                    if (jugSel < 0 || (jugSel != 0 && jugSel >= jugDisp.size())) {
+                                        System.out.println("[ERROR] El número ingresado supera la lista.");
+                                    }else{
+                                        System.out.println("Ha seleccionado a " + jugDisp.get(jugSel).getNombre());
+                                        System.out.println("Precio: " + jugDisp.get(jugSel).getPrecio());
+                                        System.out.println("Presupuesto del Equipo: " + eq.getPresupuesto());
+                                        System.out.println("");
+
+                                        if (jugDisp.get(jugSel).getPrecio() > eq.getPresupuesto()) {
+                                            System.out.println("[ERROR] Su equipo no tiene suficientes fondos para contratar a ese jugador.");
+                                        }else{
+                                            int numJug = -1;
+                                            boolean cont;
+                                            
+                                            do{
+                                                cont = true;
+                                                System.out.print("Ingrese el número que el jugador portará en el equipo: ");
+                                                numJug = entrada.nextInt();
+
+                                                for (Jugador jug : eq.getJugadores()) {
+                                                    if (numJug == jug.getNumero()) {
+                                                        System.out.println("[ERROR] Ese número ya le corresponde a un jugador en el equipo.");
+                                                        cont = false;
+                                                    }
+                                                }
+                                                
+                                            }while(cont == false);
+
+                                            eq.setPresupuesto(eq.getPresupuesto() - jugDisp.get(jugSel).getPrecio());
+                                            jugDisp.get(jugSel).estado = true;
+                                            jugDisp.get(jugSel).setEquipo(eq.getNombre());
+                                            jugDisp.get(jugSel).setNumero(numJug);
+                                            eq.getJugadores().add(jugDisp.get(jugSel));
+
+                                            System.out.println("Jugador contratado exitosamente.");
+                                        }
+
+                                    }
                                 }
-                            }
-                            
-                            break;
-                        case 4:
-                            sel = true;
-                            break;
-                        default:
-                            System.out.println("[ERROR] Número de opción inválido.");
+
+                                break;
+                            case 3:
+                                sel = true;
+                                break;
+                            default:
+                                System.out.println("[ERROR] Número de opción inválido.");
+                        }
                     }
                 }
+            }while(true);
+        }catch(Exception ex){
+            System.out.println("[ERROR] Datos inválidos ingresados");
+        }
+    }
+    
+    public static void eliminarEquipo(){
+        try{
+            for (int i = 0; i < equipos.size(); i++) {
+                System.out.println("[" + (i+1) + "] " + equipos.get(i).getNombre());
             }
-        }while(true);
+
+            System.out.print("\n¿Que equipo desea administrar? - ");
+            int eqSel = entrada.nextInt();
+            eqSel--;
+            System.out.println("");
+
+            if (eqSel < 0 || eqSel >= equipos.size()) {
+                System.out.println("[ERROR] El número ingresado no corresponde a ningún equipo.");
+            }else{
+                System.out.println("Seguro que desea eliminar al equipo [" + equipos.get(eqSel).getNombre() + "]?");
+                System.out.print("Escriba [S/N]: ");
+
+                char respElim = entrada.next().charAt(0);
+
+                if (respElim == 's' || respElim == 'S') {
+                    equipos.remove(eqSel);
+                    System.out.println("Equipo removido exitosamente.");
+                }else{
+                    System.out.println("Operación Abortada");
+                }
+            }
+        }catch(Exception ex){
+            System.out.println("[ERROR] Datos inválidos ingresados");
+        }
+        
+    }
+    
+    public static void listarJugadores(){
+        try{
+            System.out.println("");
+        }catch(Exception ex){
+            System.out.println("[ERROR] Datos inválidos ingresados");
+        }
     }
     
 }

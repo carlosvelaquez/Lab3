@@ -1,7 +1,7 @@
 package lab3_carlosvelasquez;
 
 public class Jugador {
-    String nombre, apellido, paisNacimiento, equipo;
+    String nombre, apellido, paisNacimiento, equipo = "Ninguno";
     char piePreferido, tipo = 'n';
     int edad, numero;
     float precio;
@@ -93,6 +93,13 @@ public class Jugador {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    @Override
+    public String toString() {
+        return " | " + nombre + " | " + apellido + " | " + paisNacimiento + " | " + equipo + " | " + piePreferido + " | " + tipo + " | " + edad + " | " + numero + " | " + precio + " | " + estado + " | ";
+    }
+    
+    
     
     public String toStringCont(){
         String piePreferidoString, tipoString;
