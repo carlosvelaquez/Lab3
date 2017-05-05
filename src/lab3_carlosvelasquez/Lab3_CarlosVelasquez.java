@@ -303,9 +303,129 @@ public class Lab3_CarlosVelasquez {
     
     public static void listarJugadores(){
         try{
-            System.out.println("");
+            System.out.println(" | Nombre | Apellido | Edad | País de Nacimiento | Pie Preferido | Precio | Rol | \n");
+            
+            for (Jugador j : jugadores) {
+                System.out.println(j);
+            }
+            
         }catch(Exception ex){
             System.out.println("[ERROR] Datos inválidos ingresados");
+        }
+    }
+    
+    public static void crearJugador(){
+        String nombre, apellido, paisNacimiento;
+        char piePreferido;
+        int edad;
+        float precio;
+        
+        try{
+            System.out.println("Creando Jugador Nuevo");
+            System.out.println("Ingresar datos para el nuevo jugador\n");
+
+            System.out.print("Nombre: ");
+            entrada = new Scanner(System.in);
+            nombre = entrada.nextLine();
+            entrada = new Scanner(System.in);
+            
+            System.out.print("Apellido: ");
+            entrada = new Scanner(System.in);
+            apellido = entrada.nextLine();
+            entrada = new Scanner(System.in);
+            
+            System.out.print("Edad: ");
+            edad = entrada.nextInt();
+            
+            System.out.print("País de Nacimiento: ");
+            entrada = new Scanner(System.in);
+            paisNacimiento = entrada.nextLine();
+            entrada = new Scanner(System.in);
+            
+            do{
+                System.out.print("Pie Preferido (I/D): ");
+                piePreferido = entrada.next().charAt(0);
+                
+                if (piePreferido != 'I' && piePreferido != 'D') {
+                    System.out.println("[ERROR] Debe ingresar I o D");
+                }else{
+                    break;
+                }
+            }while(true);
+            
+            System.out.print("Precio ($): ");
+            precio = entrada.nextFloat();
+            
+            do {
+                System.out.println("");
+                System.out.println("[1] Delantero");
+                System.out.println("[2] Defensa");
+                System.out.println("[3] Medio");
+                System.out.println("[4] Portero");
+                System.out.print("\nSeleccionar Rol - ");
+                int rolSel = entrada.nextInt();
+                System.out.println("");
+
+                switch (rolSel) {
+                    case 1:
+                        System.out.print("Nivel de Definición: ");
+                        float nivDef = entrada.nextFloat();
+                        
+                        System.out.print("Altura: ");
+                        float altura = entrada.nextFloat();
+                        
+                        System.out.print("Velocidad (m/s): ");
+                        float velocidad = entrada.nextFloat();
+                        
+                        System.out.print("Promedio de Goles: ");
+                        float promGoles = entrada.nextFloat();
+                        
+                        Delantero d = new Delantero(nivDef, altura, velocidad, promGoles, nombre, apellido, paisNacimiento, piePreferido, edad, precio);
+                        d.setTipo('D');
+                        jugadores.add(d);
+                        System.out.println("Jugador creado exitosamente.");
+                        break;
+                    case 2:
+                        System.out.print("Nivel de Agresividad: ");
+                        float nivAgres = entrada.nextFloat();
+                        
+                        System.out.print("Altura: ");
+                        float alt = entrada.nextFloat();
+                        
+                        System.out.print("Peso: ");
+                        float peso = entrada.nextFloat();
+                        
+                        System.out.print("Velocidad (m/s): ");
+                        float vel = entrada.nextFloat();
+                        
+                        Defensa f = new Defensa(nivAgres, alt, peso, vel, nombre, apellido, paisNacimiento, piePreferido, edad, precio);
+                        jugadores.add(f);
+                        System.out.println("Jugador creado exitosamente.");
+                        break;
+                    case 3:
+                        System.out.print("Nivel de Creatividad: ");
+                        float nivCreat = entrada.nextFloat();
+                        
+                        System.out.print("Nivel de Dominio: ");
+                        float nivDom = entrada.nextFloat();
+                        
+                        System.out.print("Promedio de Asistencias: ");
+                        float promAsist = entrada.nextFloat();
+                        
+                        Medio m = new Medio(nivCreat, nivDom, promAsist, nombre, apellido, paisNacimiento, piePreferido, edad, precio);
+                        jugadores.add(m);
+                        System.out.println("Jugador creado exitosamente.");
+                        break;
+                    default:
+                        System.out.println("[ERROR] Número de opción inválido");
+                }
+            } while (true);
+            
+            
+            
+            
+        }catch(Exception ex){
+            System.out.println("[ERROR] Datos inválidos ingresados.");
         }
     }
     

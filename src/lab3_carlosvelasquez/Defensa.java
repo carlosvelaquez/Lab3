@@ -6,8 +6,8 @@ public class Defensa extends Jugador{
     public Defensa() {
     }
 
-    public Defensa(float nivelAgresividad, float altura, float peso, float velocidad, String nombre, String apellido, String paisNacimiento, String equipo, char piePreferido, int edad, int numero, float precio, boolean estado) {
-        super(nombre, apellido, paisNacimiento, equipo, piePreferido, edad, numero, precio, estado);
+    public Defensa(float nivelAgresividad, float altura, float peso, float velocidad, String nombre, String apellido, String paisNacimiento, char piePreferido, int edad, float precio) {
+        super(nombre, apellido, paisNacimiento, piePreferido, edad, precio);
         this.nivelAgresividad = nivelAgresividad;
         this.altura = altura;
         this.peso = peso;

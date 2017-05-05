@@ -10,17 +10,24 @@ public class Jugador {
     public Jugador() {
     }
 
-    public Jugador(String nombre, String apellido, String paisNacimiento, String equipo, char piePreferido, int edad, int numero, float precio, boolean estado) {
+    public Jugador(String nombre, String apellido, String paisNacimiento, char piePreferido, int edad, float precio) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.paisNacimiento = paisNacimiento;
-        this.equipo = equipo;
         this.piePreferido = piePreferido;
         this.edad = edad;
-        this.numero = numero;
         this.precio = precio;
-        this.estado = estado;
     }
+
+    public char getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(char tipo) {
+        this.tipo = tipo;
+    }
+    
+    
 
     public String getNombre() {
         return nombre;

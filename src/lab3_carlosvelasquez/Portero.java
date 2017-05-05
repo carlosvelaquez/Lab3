@@ -6,8 +6,8 @@ public class Portero extends Jugador{
     public Portero() {
     }
 
-    public Portero(float nivelJuegoAereo, float nivelJuegoPies, String nombre, String apellido, String paisNacimiento, String equipo, char piePreferido, int edad, int numero, float precio, boolean estado) {
-        super(nombre, apellido, paisNacimiento, equipo, piePreferido, edad, numero, precio, estado);
+    public Portero(float nivelJuegoAereo, float nivelJuegoPies, String nombre, String apellido, String paisNacimiento, char piePreferido, int edad, float precio) {
+        super(nombre, apellido, paisNacimiento, piePreferido, edad, precio);
         this.nivelJuegoAereo = nivelJuegoAereo;
         this.nivelJuegoPies = nivelJuegoPies;
     }

@@ -6,8 +6,8 @@ public class Delantero extends Jugador{
     public Delantero() {
     }
 
-    public Delantero(float nivelDefinicion, float altura, float velocidad, float promedioGoles, String nombre, String apellido, String paisNacimiento, String equipo, char piePreferido, int edad, int numero, float precio, boolean estado) {
-        super(nombre, apellido, paisNacimiento, equipo, piePreferido, edad, numero, precio, estado);
+    public Delantero(float nivelDefinicion, float altura, float velocidad, float promedioGoles, String nombre, String apellido, String paisNacimiento, char piePreferido, int edad, float precio) {
+        super(nombre, apellido, paisNacimiento, piePreferido, edad, precio);
         this.nivelDefinicion = nivelDefinicion;
         this.altura = altura;
         this.velocidad = velocidad;

@@ -6,8 +6,8 @@ public class Medio extends Jugador{
     public Medio() {
     }
 
-    public Medio(float nivelCreatividad, float nivelDominio, float promedioAsistencias, String nombre, String apellido, String paisNacimiento, String equipo, char piePreferido, int edad, int numero, float precio, boolean estado) {
-        super(nombre, apellido, paisNacimiento, equipo, piePreferido, edad, numero, precio, estado);
+    public Medio(float nivelCreatividad, float nivelDominio, float promedioAsistencias, String nombre, String apellido, String paisNacimiento, char piePreferido, int edad, float precio) {
+        super(nombre, apellido, paisNacimiento, piePreferido, edad, precio);
         this.nivelCreatividad = nivelCreatividad;
         this.nivelDominio = nivelDominio;
         this.promedioAsistencias = promedioAsistencias;
