@@ -103,7 +103,32 @@ public class Jugador {
 
     @Override
     public String toString() {
-        return " | " + nombre + " | " + apellido + " | " + paisNacimiento + " | " + equipo + " | " + piePreferido + " | " + tipo + " | " + edad + " | " + numero + " | " + precio + " | " + estado + " | ";
+        String piePreferidoString, tipoString;
+        if (piePreferido == 'I') {
+            piePreferidoString = "Izquierdo";
+        }else{
+            piePreferidoString = "Derecho";
+        }
+        
+        switch (tipo) {
+            case 'D':
+                tipoString = "Delantero";
+                break;
+            case 'F':
+                tipoString = "Defensa";
+                break;
+            case 'M':
+                tipoString = "Medio";
+                break;
+            case 'P':
+                tipoString = "Portero";
+                break;
+            default:
+                tipoString = "No Definido";
+                break;
+        }
+        
+        return " | " + nombre + " | " + apellido + " | " + edad + " | " + paisNacimiento + " | " + piePreferidoString + " | " + precio + " | " + tipoString + " | " + equipo + " | ";
     }
     
     

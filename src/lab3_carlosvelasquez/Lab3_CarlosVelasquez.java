@@ -175,6 +175,7 @@ public class Lab3_CarlosVelasquez {
                         sel = false;
                         System.out.println("Equipo [" + eq.getNombre() + "] seleccionado.");
                     }
+                    System.out.println("");
                 }else{
                     entrada = new Scanner(System.in);
                     System.out.println("-   -   -   -   -   -   -   -   -   -");
@@ -213,6 +214,7 @@ public class Lab3_CarlosVelasquez {
                                     System.out.println("Saliendo...");
                                     break;
                                 }else{
+                                    jugSel--;
                                     contAv--;
                                     if (jugSel < 0 || (jugSel != 0 && jugSel >= jugDisp.size())) {
                                         System.out.println("[ERROR] El número ingresado supera la lista.");
@@ -355,8 +357,10 @@ public class Lab3_CarlosVelasquez {
             
             System.out.print("Precio ($): ");
             precio = entrada.nextFloat();
+            boolean rep;
             
             do {
+                rep = false;
                 System.out.println("");
                 System.out.println("[1] Delantero");
                 System.out.println("[2] Defensa");
@@ -399,6 +403,7 @@ public class Lab3_CarlosVelasquez {
                         float vel = entrada.nextFloat();
                         
                         Defensa f = new Defensa(nivAgres, alt, peso, vel, nombre, apellido, paisNacimiento, piePreferido, edad, precio);
+                        f.setTipo('F');
                         jugadores.add(f);
                         System.out.println("Jugador creado exitosamente.");
                         break;
@@ -413,17 +418,251 @@ public class Lab3_CarlosVelasquez {
                         float promAsist = entrada.nextFloat();
                         
                         Medio m = new Medio(nivCreat, nivDom, promAsist, nombre, apellido, paisNacimiento, piePreferido, edad, precio);
+                        m.setTipo('M');
                         jugadores.add(m);
+                        System.out.println("Jugador creado exitosamente.");
+                        break;
+                    case 4:
+                        System.out.print("Nivel de Juego Aéreo: ");
+                        float nivJugAr = entrada.nextFloat();
+                        
+                        System.out.print("Nivel de Juego con los Pies: ");
+                        float nivPies = entrada.nextFloat();
+                        
+                        Portero p = new Portero(nivJugAr, nivPies, nombre, apellido, paisNacimiento, piePreferido, edad, precio);
+                        p.setTipo('P');
+                        jugadores.add(p);
                         System.out.println("Jugador creado exitosamente.");
                         break;
                     default:
                         System.out.println("[ERROR] Número de opción inválido");
+                        rep = true;
                 }
-            } while (true);
+            } while (rep == true);
             
             
             
             
+        }catch(Exception ex){
+            System.out.println("[ERROR] Datos inválidos ingresados.");
+        }
+    }
+    
+    public static void modificarJugador(){
+        String nombre, apellido, paisNacimiento;
+        char piePreferido;
+        int edad;
+        float precio;
+        
+        try{
+            int cont = 1;
+            System.out.println(" | No | Nombre | Apellido | Edad | País de Nacimiento | Pie Preferido | Precio | Rol | \n");
+            
+            for (Jugador j : jugadores) {
+                System.out.println(" | " + cont + j);
+                cont++;
+            }
+            System.out.print("\n¿Que jugador desea modificar? - ");
+            int modSel = entrada.nextInt();
+            modSel--;
+            
+            if (modSel < 0 || modSel >= jugadores.size()) {
+                System.out.println("[ERROR] El número ingresado supera el tamaño de la lista");
+            }else{
+                System.out.println("Modificando al jugador [" + jugadores.get(modSel).getNombre() + "]");
+                System.out.println("Ingresar datos actualizados\n");
+
+                System.out.print("Nombre: ");
+                entrada = new Scanner(System.in);
+                nombre = entrada.nextLine();
+                entrada = new Scanner(System.in);
+
+                System.out.print("Apellido: ");
+                entrada = new Scanner(System.in);
+                apellido = entrada.nextLine();
+                entrada = new Scanner(System.in);
+
+                System.out.print("Edad: ");
+                edad = entrada.nextInt();
+
+                System.out.print("País de Nacimiento: ");
+                entrada = new Scanner(System.in);
+                paisNacimiento = entrada.nextLine();
+                entrada = new Scanner(System.in);
+
+                do{
+                    System.out.print("Pie Preferido (I/D): ");
+                    piePreferido = entrada.next().charAt(0);
+
+                    if (piePreferido != 'I' && piePreferido != 'D') {
+                        System.out.println("[ERROR] Debe ingresar I o D");
+                    }else{
+                        break;
+                    }
+                }while(true);
+
+                System.out.print("Precio ($): ");
+                precio = entrada.nextFloat();
+                boolean rep;
+
+                do {
+                    rep = false;
+                    System.out.println("");
+                    System.out.println("[1] Delantero");
+                    System.out.println("[2] Defensa");
+                    System.out.println("[3] Medio");
+                    System.out.println("[4] Portero");
+                    System.out.print("\nSeleccionar Rol - ");
+                    int rolSel = entrada.nextInt();
+                    System.out.println("");
+
+                    switch (rolSel) {
+                        case 1:
+                            System.out.print("Nivel de Definición: ");
+                            float nivDef = entrada.nextFloat();
+
+                            System.out.print("Altura: ");
+                            float altura = entrada.nextFloat();
+
+                            System.out.print("Velocidad (m/s): ");
+                            float velocidad = entrada.nextFloat();
+
+                            System.out.print("Promedio de Goles: ");
+                            float promGoles = entrada.nextFloat();
+
+                            Delantero d = (Delantero) jugadores.get(modSel);
+                            d.setNombre(nombre);
+                            d.setApellido(apellido);
+                            d.setEdad(edad);
+                            d.setPaisNacimiento(paisNacimiento);
+                            d.setPiePreferido(piePreferido);
+                            d.setPrecio(precio);
+                            
+                            d.setNivelDefinicion(nivDef);
+                            d.setAltura(altura);
+                            d.setVelocidad(velocidad);
+                            d.setPromedioGoles(promGoles);
+                            d.setTipo('D');
+                            jugadores.set(modSel, d);
+                            System.out.println("Jugador modificado exitosamente.");
+                            break;
+                        case 2:
+                            System.out.print("Nivel de Agresividad: ");
+                            float nivAgres = entrada.nextFloat();
+
+                            System.out.print("Altura: ");
+                            float alt = entrada.nextFloat();
+
+                            System.out.print("Peso: ");
+                            float peso = entrada.nextFloat();
+
+                            System.out.print("Velocidad (m/s): ");
+                            float vel = entrada.nextFloat();
+
+                            Defensa f = (Defensa) jugadores.get(modSel);
+                            f.setNombre(nombre);
+                            f.setApellido(apellido);
+                            f.setEdad(edad);
+                            f.setPaisNacimiento(paisNacimiento);
+                            f.setPiePreferido(piePreferido);
+                            f.setPrecio(precio);
+                            
+                            f.setNivelAgresividad(nivAgres);
+                            f.setAltura(alt);
+                            f.setPeso(peso);
+                            f.setVelocidad(vel);
+                            f.setTipo('F');
+                            jugadores.set(modSel, f);
+                            System.out.println("Jugador modificado exitosamente.");
+                            break;
+                        case 3:
+                            System.out.print("Nivel de Creatividad: ");
+                            float nivCreat = entrada.nextFloat();
+
+                            System.out.print("Nivel de Dominio: ");
+                            float nivDom = entrada.nextFloat();
+
+                            System.out.print("Promedio de Asistencias: ");
+                            float promAsist = entrada.nextFloat();
+
+                            Medio m = (Medio) jugadores.get(modSel);
+                            m.setNombre(nombre);
+                            m.setApellido(apellido);
+                            m.setEdad(edad);
+                            m.setPaisNacimiento(paisNacimiento);
+                            m.setPiePreferido(piePreferido);
+                            m.setPrecio(precio);
+                            
+                            m.setNivelCreatividad(nivCreat);
+                            m.setNivelDominio(nivDom);
+                            m.setPromedioAsistencias(promAsist);
+                            m.setTipo('M');
+                            jugadores.set(modSel, m);
+                            System.out.println("Jugador modificado exitosamente.");
+                            break;
+                        case 4:
+                            System.out.print("Nivel de Juego Aéreo: ");
+                            float nivJugAr = entrada.nextFloat();
+
+                            System.out.print("Nivel de Juego con los Pies: ");
+                            float nivPies = entrada.nextFloat();
+
+                            Portero p = (Portero) jugadores.get(modSel);
+                            p.setNombre(nombre);
+                            p.setApellido(apellido);
+                            p.setEdad(edad);
+                            p.setPaisNacimiento(paisNacimiento);
+                            p.setPiePreferido(piePreferido);
+                            p.setPrecio(precio);
+                            
+                            p.setNivelJuegoAereo(nivJugAr);
+                            p.setNivelJuegoPies(nivPies);
+                            p.setTipo('P');
+                            jugadores.set(modSel, p);
+                            System.out.println("Jugador modificado exitosamente.");
+                            break;
+                        default:
+                            System.out.println("[ERROR] Número de opción inválido");
+                            rep = true;
+                            break;
+                    }
+                } while (rep == true);
+            }
+            
+            
+        }catch(Exception ex){
+            System.out.println("[ERROR] Datos inválidos ingresados.");
+        }
+    }
+    
+    public static void eliminarJugador(){
+        try{
+            int cont = 1;
+            System.out.println(" | No | Nombre | Apellido | Edad | País de Nacimiento | Pie Preferido | Precio | Rol | \n");
+            
+            for (Jugador j : jugadores) {
+                System.out.println(" | " + cont + j);
+                cont++;
+            }
+            System.out.print("\n¿Que jugador desea eliminar? - ");
+            int modSel = entrada.nextInt();
+            modSel--;
+            
+            if (modSel < 0 || modSel >= jugadores.size()) {
+                System.out.println("[ERROR] El número ingresado supera el tamaño de la lista");
+            }else{
+                System.out.println("Seguro que desea eliminar al jugador [" + jugadores.get(modSel).getNombre() + "]?");
+                System.out.print("Escriba [S/N]: ");
+                char respElim = entrada.next().charAt(0);
+                
+                if (respElim == 's' || respElim == 'S') {
+                    equipos.remove(modSel);
+                    System.out.println("Equipo removido exitosamente.");
+                }else{
+                    System.out.println("Operación Abortada");
+                }
+                
+            }
         }catch(Exception ex){
             System.out.println("[ERROR] Datos inválidos ingresados.");
         }
