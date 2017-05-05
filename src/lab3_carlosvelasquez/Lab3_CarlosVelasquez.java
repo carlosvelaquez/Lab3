@@ -1,21 +1,195 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lab3_carlosvelasquez;
 
-/**
- *
- * @author imado
- */
-public class Lab3_CarlosVelasquez {
+import java.util.ArrayList;
+import java.util.Scanner;
 
-    /**
-     * @param args the command line arguments
-     */
+public class Lab3_CarlosVelasquez {
+    static Scanner entrada = new Scanner(System.in);
+    static ArrayList<Jugador> jugadores = new ArrayList();
+    static ArrayList<Equipo> equipos = new ArrayList();
+
     public static void main(String[] args) {
-        // TODO code application logic here
+        System.out.println("Laboratorio 3 - Carlos Velásquez");
+        do{
+            menu();
+        }while(true);
+    }
+    
+    public static void menu(){
+        entrada = new Scanner(System.in);
+        
+        System.out.println("-   -   -   -   -   -   -   -   -   -");
+        System.out.println("[1] Equipos");
+        System.out.println("[2] Jugadores");
+        System.out.println("[3] Salir del Programa");
+        System.out.print("\nSeleccione un módulo - ");
+        
+        int menuSel = entrada.nextInt();
+        System.out.println("-   -   -   -   -   -   -   -   -   -");
+        
+        if (menuSel == 3) {
+            System.exit(0);
+        }else{
+            switch (menuSel) {
+                case 1:
+                    do{
+                        int menuSel2;
+                        entrada = new Scanner(System.in);
+                        System.out.println("-   -   -   -   -   -   -   -   -   -");
+                        System.out.println("[1] Listar Equipos");
+                        System.out.println("[2] Crear Nuevo Equipo");
+                        System.out.println("[3] Administrar Equipos");
+                        System.out.println("[4] Eliminar Equipo");
+                        System.out.println("[5] Menú Principal");
+                        System.out.println("\n¿Que desea hacer? - ");
+                        menuSel2 = entrada.nextInt();
+                        System.out.println("-   -   -   -   -   -   -   -   -   -");
+                        
+                        if (menuSel2 == 5) {
+                            System.out.println("Saliendo...");
+                            break;
+                        }else{
+                            switch (menuSel2) {
+                                case 1:
+                                    listarEquipos();
+                                    break;
+                                case 2:
+                                    crearEquipo();
+                                    break;
+                                case 3:
+                                    administrarEquipo();
+                                    break;
+                                case 4:
+                                    eliminarEquipo();
+                                    break;
+                                default:
+                                    System.out.println("[ERROR] Número de opción inválido.");
+                                    break;
+                            }
+                        }
+                    }while(true);
+                    break;
+                default:
+                    System.out.println("[ERROR] Número de opción inválido.");
+            }
+        }
+    }
+    
+    public static void listarEquipos(){
+        System.out.println(" | Nombre | Ciudad | Presupuesto | Palmares | \n");
+        for (Equipo e : equipos) {
+            System.out.println(e);
+        }
+    }
+    
+    public static void crearEquipo(){
+        Equipo eq = new Equipo();
+        
+        try{
+            
+            System.out.println("Creando Nuevo Equipo\nIngresar datos para el nuevo equipo.\n");
+            System.out.print("Nombre: ");
+            entrada = new Scanner(System.in);
+            eq.setNombre(entrada.nextLine());
+            entrada = new Scanner(System.in);
+            
+            System.out.print("Ciudad: ");
+            entrada = new Scanner(System.in);
+            eq.setCiudad(entrada.nextLine());
+            entrada = new Scanner(System.in);
+            
+            System.out.print("Presupuesto ($): ");
+            eq.setPresupuesto(entrada.nextFloat());
+            
+            System.out.print("Palmares: ");
+            eq.setPalmares(entrada.nextInt());
+            
+            equipos.add(eq);
+            System.out.println("\nEquipo creado exitosamente.");
+            
+        }catch(Exception ex){
+            System.out.println("[ERROR] Datos inválidos ingresados.");
+        }
+        
+    }
+    
+    public static void administrarEquipo(){
+        boolean sel = true;
+        Equipo eq = new Equipo();
+        
+        do{
+            if (sel == true) {
+                for (int i = 0; i < equipos.size(); i++) {
+                    System.out.println("[" + (i+1) + "] " + equipos.get(i).getNombre());
+                }
+                
+                System.out.print("\n¿Que equipo desea administrar? - ");
+                int eqSel = entrada.nextInt();
+                eqSel--;
+                
+                if (eqSel < 0 && eqSel >= equipos.size()) {
+                    System.out.println("[ERROR] El número ingresado no corresponde a ningún equipo.");
+                }else{
+                    eq = equipos.get(eqSel);
+                    sel = false;
+                    System.out.println("Equipo [" + eq.getNombre() + "] seleccionado.");
+                }
+            }else{
+                entrada = new Scanner(System.in);
+                System.out.println("-   -   -   -   -   -   -   -   -   -");
+                System.out.println("[1] Comprar Jugador");
+                System.out.println("[2] Organizar Equipo");
+                System.out.println("[3] Cambiar de Equipo");
+                System.out.println("[4] Regresar a Menú de Equipos");
+                System.out.println("\n¿Que desea hacer? - ");
+                int menuSel = entrada.nextInt();
+                System.out.println("-   -   -   -   -   -   -   -   -   -");
+
+                if (menuSel == 4) {
+                    System.out.println("Saliendo...");
+                    break;
+                }else{
+                    switch (menuSel) {
+                        case 1:
+                            int contAv = 1;
+                            ArrayList<Jugador> jugDisp = new ArrayList();
+                            
+                            System.out.println("Jugadores Disponibles\n"
+                                    + "No. | Nombre | Apellido | Edad | País de Nacimiento | Pie Preferido | Precio | Rol | \n");
+                            for (Jugador j : jugadores) {
+                                if(j.estado == false){
+                                    System.out.println(" | " + contAv + j.toStringCont());
+                                    jugDisp.add(j);
+                                    contAv++;
+                                }
+                            }
+                            
+                            System.out.print("\n¿Que jugador desea contratar? (0 para abortar) - ");
+                            int jugSel = entrada.nextInt();
+                            System.out.println("");
+                            
+                            if(jugSel == 0){
+                                System.out.println("Saliendo...");
+                                break;
+                            }else{
+                                contAv--;
+                                if (jugSel < 0 || (jugSel != 0 && jugSel >= jugDisp.size())) {
+                                    System.out.println("[ERROR] El número ingresado supera la lista.");
+                                }else{
+                                    eq.getJugadores();
+                                }
+                            }
+                            
+                            break;
+                        case 4:
+                            sel = true;
+                            break;
+                        default:
+                            System.out.println("[ERROR] Número de opción inválido.");
+                    }
+                }
+            }
+        }while(true);
     }
     
 }
