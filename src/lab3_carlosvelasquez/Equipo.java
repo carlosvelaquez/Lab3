@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Equipo {
     ArrayList<Jugador> jugadores = new ArrayList();
+    ArrayList<Jugador> formacion = new ArrayList();
     
     String nombre, ciudad;
     float presupuesto;
@@ -16,6 +17,14 @@ public class Equipo {
         this.nombre = nombre;
         this.ciudad = ciudad;
         this.presupuesto = presupuesto;
+    }
+
+    public ArrayList<Jugador> getFormacion() {
+        return formacion;
+    }
+
+    public void setFormacion(ArrayList<Jugador> formacion) {
+        this.formacion = formacion;
     }
 
     public ArrayList<Jugador> getJugadores() {
@@ -63,5 +72,12 @@ public class Equipo {
         return " | " + nombre + " | " + ciudad + " | " + presupuesto + " | " + palmares + " | ";
     }
     
-    
+    public boolean hayPortero(){
+        for (Jugador j : jugadores) {
+            if (j.getTipo() == 'P') {
+                return true;
+            }
+        }
+        return false;
+    }
 }

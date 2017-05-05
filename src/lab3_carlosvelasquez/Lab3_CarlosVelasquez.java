@@ -10,9 +10,14 @@ public class Lab3_CarlosVelasquez {
 
     public static void main(String[] args) {
         System.out.println("Laboratorio 3 - Carlos Velásquez");
-        do{
-            menu();
-        }while(true);
+        
+        try{
+            do{
+                menu();
+            }while(true);
+        }catch(Exception ex){
+            System.out.println("[ERROR] Datos inválidos ingresados");
+        }
     }
     
     public static void menu(){
@@ -170,12 +175,12 @@ public class Lab3_CarlosVelasquez {
 
                     if (eqSel < 0 || eqSel >= equipos.size()) {
                         System.out.println("[ERROR] El número ingresado no corresponde a ningún equipo.");
+                        System.out.println("");
                     }else{
                         eq = equipos.get(eqSel);
                         sel = false;
                         System.out.println("Equipo [" + eq.getNombre() + "] seleccionado.");
                     }
-                    System.out.println("");
                 }else{
                     entrada = new Scanner(System.in);
                     System.out.println("-   -   -   -   -   -   -   -   -   -");
@@ -197,7 +202,7 @@ public class Lab3_CarlosVelasquez {
                                 ArrayList<Jugador> jugDisp = new ArrayList();
 
                                 System.out.println("Jugadores Disponibles\n"
-                                        + "No. | Nombre | Apellido | Edad | País de Nacimiento | Pie Preferido | Precio | Rol | \n");
+                                        + " | No. | Nombre | Apellido | Edad | País de Nacimiento | Pie Preferido | Precio | Rol | \n");
                                 for (Jugador j : jugadores) {
                                     if(j.estado == false){
                                         System.out.println(" | " + contAv + j.toStringCont());
@@ -234,11 +239,16 @@ public class Lab3_CarlosVelasquez {
                                                 cont = true;
                                                 System.out.print("Ingrese el número que el jugador portará en el equipo: ");
                                                 numJug = entrada.nextInt();
-
-                                                for (Jugador jug : eq.getJugadores()) {
-                                                    if (numJug == jug.getNumero()) {
-                                                        System.out.println("[ERROR] Ese número ya le corresponde a un jugador en el equipo.");
-                                                        cont = false;
+                                                
+                                                if (numJug <= 0) {
+                                                    System.out.println("[ERROR] El número del jugador debe ser mayor a 0\n");
+                                                    cont = false;
+                                                }else{
+                                                    for (Jugador jug : eq.getJugadores()) {
+                                                        if (numJug == jug.getNumero()) {
+                                                            System.out.println("[ERROR] Ese número ya le corresponde a un jugador en el equipo.");
+                                                            cont = false;
+                                                        }
                                                     }
                                                 }
                                                 
@@ -256,6 +266,164 @@ public class Lab3_CarlosVelasquez {
                                     }
                                 }
 
+                                break;
+                            case 2:
+                                int numDef, numDel, numMed;
+                                if (eq.getJugadores().size() <= 0) {
+                                    System.out.println("[ERROR] No hay jugadores en el equipo");
+                                }else if(eq.hayPortero() == false){
+                                    System.out.println("[ERROR] El equipo no tiene portero");
+                                }else{
+                                    int contDel = 0, contMed = 0, contDef = 0;
+                                    for (Jugador j : eq.getJugadores()) {
+                                            if (j instanceof Delantero) {
+                                                contDel++;
+                                            }else if(j instanceof Medio){
+                                                contMed++;
+                                            }else if(j instanceof Defensa){
+                                                contDef++;
+                                            }
+                                    }
+                                    System.out.println("Organizando Equipo");
+                                    System.out.println("Elegir el numero de jugadores para cada línea\n");
+                                    System.out.print("Delanteros (tiene " + contDel + "): ");
+                                    numDel = entrada.nextInt();
+                                    if (numDel < 0 || numDel > contDel) {
+                                        System.out.println("[ERROR] No tiene ese número de delanteros");
+                                        break;
+                                    }
+
+                                    System.out.print("Medios (tiene " + contMed + "): ");
+                                    numMed = entrada.nextInt();
+                                    if (numMed < 0 || numMed > contMed) {
+                                        System.out.println("[ERROR] No tiene ese número de medios");
+                                        break;
+                                    }
+
+                                    System.out.print("Defensas (tiene " + contDef + "): ");
+                                    numDef = entrada.nextInt();
+                                    if (numDef < 0 || numDef > contDef) {
+                                        System.out.println("[ERROR] No tiene ese número de defensas");
+                                        break;
+                                    }
+                                    
+                                    if (numDef + numMed + numDel + 1 > 11) {
+                                        System.out.println("[ERROR] La formación no puede tener mas de 11 jugadores.");
+                                    }else{
+                                        ArrayList<Jugador> jugs = new ArrayList();
+                                        for (Jugador j : eq.getJugadores()) {
+                                            if (j instanceof Delantero) {
+                                                jugs.add(j);
+                                            }
+                                        }
+                                        System.out.println("");
+                                        
+                                        for (int i = 0; i < numDel; i++) {
+                                            System.out.println("Seleccionar Delantero [" + (i+1) + "]");
+                                            for (int j = 0; j < jugs.size(); j++) {
+                                                System.out.println(" | " + (j+1) + jugs.get(j));
+                                            }
+                                            
+                                            System.out.print("\nSeleccione un Jugador - ");
+                                            jugSel = entrada.nextInt();
+                                            jugSel--;
+                                            
+                                            if (jugSel < 0 || jugSel >= jugs.size()) {
+                                                System.out.println("[ERROR] El número ingresado supera el tamaño de la lista");
+                                                i--;
+                                            }else{
+                                                eq.getFormacion().add(jugs.get(jugSel));
+                                                jugs.remove(jugSel);
+                                            }
+                                        }
+                                        
+                                        System.out.println("");
+                                        
+                                        jugs = new ArrayList();
+                                        for (Jugador j : eq.getJugadores()) {
+                                            if (j instanceof Medio) {
+                                                jugs.add(j);
+                                            }
+                                        }
+                                        
+                                        for (int i = 0; i < numMed; i++) {
+                                            System.out.println("Seleccionar Medio[" + (i+1) + "]");
+                                            for (int j = 0; j < jugs.size(); j++) {
+                                                System.out.println(" | " + (j+1) + jugs.get(j));
+                                            }
+                                            
+                                            System.out.print("\nSeleccione un Jugador - ");
+                                            jugSel = entrada.nextInt();
+                                            jugSel--;
+                                            
+                                            if (jugSel < 0 || jugSel >= jugs.size()) {
+                                                i--;
+                                                System.out.println("[ERROR] El número ingresado supera el tamaño de la lista");
+                                            }else{
+                                                eq.getFormacion().add(jugs.get(jugSel));
+                                                jugs.remove(jugSel);
+                                            }
+                                        }
+                                        System.out.println("");
+                                        
+                                        jugs = new ArrayList();
+                                        for (Jugador j : eq.getJugadores()) {
+                                            if (j instanceof Defensa) {
+                                                jugs.add(j);
+                                            }
+                                        }
+                                        
+                                        for (int i = 0; i < numDef; i++) {
+                                            System.out.println("Seleccionar Defensas [" + (i+1) + "]");
+                                            for (int j = 0; j < jugs.size(); j++) {
+                                                System.out.println(" | " + (j+1) + jugs.get(j));
+                                            }
+                                            
+                                            System.out.print("\nSeleccione un Jugador - ");
+                                            jugSel = entrada.nextInt();
+                                            jugSel--;
+                                            
+                                            if (jugSel < 0 || jugSel >= jugs.size()) {
+                                                i--;
+                                                System.out.println("[ERROR] El número ingresado supera el tamaño de la lista");
+                                            }else{
+                                                eq.getFormacion().add(jugs.get(jugSel));
+                                                jugs.remove(jugSel);
+                                            }
+                                        }
+                                        
+                                        jugs = new ArrayList();
+                                        for (Jugador j : eq.getJugadores()) {
+                                            if (j instanceof Portero) {
+                                                jugs.add(j);
+                                            }
+                                        }
+                                        
+                                        boolean rep;
+                                        do{
+                                            rep = false;
+                                            System.out.println("Seleccionar Portero");
+                                            for (int j = 0; j < jugs.size(); j++) {
+                                                System.out.println(" | " + (j+1) + jugs.get(j));
+                                            }
+                                            
+                                            System.out.print("\nSeleccione un Jugador - ");
+                                            jugSel = entrada.nextInt();
+                                            jugSel--;
+                                            
+                                            if (jugSel < 0 || jugSel >= jugs.size()) {
+                                                rep = true;
+                                                System.out.println("[ERROR] El número ingresado supera el tamaño de la lista");
+                                            }else{
+                                                eq.getFormacion().add(jugs.get(jugSel));
+                                                jugs.remove(jugSel);
+                                            }
+                                        }while(rep == true);
+                                        System.out.println("\nEquipo organizado exitosamente");
+                                    }
+                                }
+
+                                
                                 break;
                             case 3:
                                 sel = true;
@@ -305,7 +473,7 @@ public class Lab3_CarlosVelasquez {
     
     public static void listarJugadores(){
         try{
-            System.out.println(" | Nombre | Apellido | Edad | País de Nacimiento | Pie Preferido | Precio | Rol | \n");
+            System.out.println(" | Nombre | Apellido | Edad | País de Nacimiento | Pie Preferido | Precio | Rol | Equipo | \n");
             
             for (Jugador j : jugadores) {
                 System.out.println(j);

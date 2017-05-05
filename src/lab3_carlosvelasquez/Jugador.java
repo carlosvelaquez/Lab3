@@ -6,6 +6,7 @@ public class Jugador {
     int edad, numero;
     float precio;
     public boolean estado;
+    boolean titular;
 
     public Jugador() {
     }
@@ -159,6 +160,16 @@ public class Jugador {
                 break;
         }
         
+        
+        
         return " | " + nombre + " | " + apellido + " | " + edad + " | " + paisNacimiento + " | " + piePreferidoString + " | " + precio + " | " + tipoString + " | ";
+    }
+
+    public boolean isTitular() {
+        return titular;
+    }
+
+    public void setTitular(boolean titular) {
+        this.titular = titular;
     }
 }
