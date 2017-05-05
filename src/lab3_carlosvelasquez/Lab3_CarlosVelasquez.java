@@ -185,14 +185,16 @@ public class Lab3_CarlosVelasquez {
                     entrada = new Scanner(System.in);
                     System.out.println("-   -   -   -   -   -   -   -   -   -");
                     System.out.println("[1] Comprar Jugador");
-                    System.out.println("[2] Organizar Equipo");
-                    System.out.println("[3] Cambiar de Equipo");
-                    System.out.println("[4] Regresar a Menú de Equipos");
+                    System.out.println("[2] Listar Jugadores de Equipo");
+                    System.out.println("[3] Organizar Equipo");
+                    System.out.println("[4] Organizar Equipo");
+                    System.out.println("[5] Cambiar de Equipo");
+                    System.out.println("[6] Regresar a Menú de Equipos");
                     System.out.print("\n¿Que desea hacer? - ");
                     int menuSel = entrada.nextInt();
                     System.out.println("-   -   -   -   -   -   -   -   -   -");
 
-                    if (menuSel == 4) {
+                    if (menuSel == 6) {
                         System.out.println("Saliendo...");
                         break;
                     }else{
@@ -268,6 +270,13 @@ public class Lab3_CarlosVelasquez {
 
                                 break;
                             case 2:
+                                System.out.println(" | Nombre | Apellido | Edad | País de Nacimiento | Pie Preferido | Precio | Rol | Equipo | \n");
+            
+                                for (Jugador j: eq.getJugadores()) {
+                                    System.out.println(j);
+                                }
+                                break;
+                            case 3:
                                 int numDef, numDel, numMed;
                                 if (eq.getJugadores().size() <= 0) {
                                     System.out.println("[ERROR] No hay jugadores en el equipo");
@@ -333,6 +342,7 @@ public class Lab3_CarlosVelasquez {
                                                 i--;
                                             }else{
                                                 eq.getFormacion().add(jugs.get(jugSel));
+                                                jugs.get(jugSel).setTitular(false);
                                                 jugs.remove(jugSel);
                                             }
                                         }
@@ -361,6 +371,7 @@ public class Lab3_CarlosVelasquez {
                                                 System.out.println("[ERROR] El número ingresado supera el tamaño de la lista");
                                             }else{
                                                 eq.getFormacion().add(jugs.get(jugSel));
+                                                jugs.get(jugSel).setTitular(false);
                                                 jugs.remove(jugSel);
                                             }
                                         }
@@ -388,6 +399,7 @@ public class Lab3_CarlosVelasquez {
                                                 System.out.println("[ERROR] El número ingresado supera el tamaño de la lista");
                                             }else{
                                                 eq.getFormacion().add(jugs.get(jugSel));
+                                                jugs.get(jugSel).setTitular(false);
                                                 jugs.remove(jugSel);
                                             }
                                         }
@@ -416,6 +428,7 @@ public class Lab3_CarlosVelasquez {
                                                 System.out.println("[ERROR] El número ingresado supera el tamaño de la lista");
                                             }else{
                                                 eq.getFormacion().add(jugs.get(jugSel));
+                                                jugs.get(jugSel).setTitular(false);
                                                 jugs.remove(jugSel);
                                             }
                                         }while(rep == true);
@@ -425,7 +438,63 @@ public class Lab3_CarlosVelasquez {
 
                                 
                                 break;
-                            case 3:
+                            case 4:
+                                System.out.println("Delanteros");
+                                System.out.println(" | Nombre | Ciudad | Presupuesto | Palmares | \n");
+        
+                                for (Jugador j : eq.getFormacion()) {
+                                    if (j instanceof Delantero) {
+                                        System.out.println(j);
+                                    }
+                                }
+                                System.out.println("");
+                                
+                                System.out.println("Medios");
+                                System.out.println(" | Nombre | Ciudad | Presupuesto | Palmares | \n");
+        
+                                for (Jugador j : eq.getFormacion()) {
+                                    if (j instanceof Medio) {
+                                        System.out.println(j);
+                                    }
+                                }
+                                System.out.println("");
+                                
+                                System.out.println("Defensas");
+                                System.out.println(" | Nombre | Ciudad | Presupuesto | Palmares | \n");
+        
+                                for (Jugador j : eq.getFormacion()) {
+                                    if (j instanceof Defensa) {
+                                        System.out.println(j);
+                                    }
+                                }
+                                System.out.println("");
+                                
+                                System.out.println("Portero");
+                                System.out.println(" | Nombre | Ciudad | Presupuesto | Palmares | \n");
+        
+                                for (Jugador j : eq.getFormacion()) {
+                                    if (j instanceof Portero) {
+                                        System.out.println(j);
+                                    }
+                                }
+                                System.out.println("");
+                                System.out.println("Suplentes");
+                                System.out.println(" | Nombre | Ciudad | Presupuesto | Palmares | \n");
+        
+                                for (Jugador j : eq.getFormacion()) {
+                                    boolean imprimir = false;
+                                    for (Jugador j2 : eq.getJugadores()) {
+                                        if (j2.toString().equals(j.toString())) {
+                                            imprimir = false;
+                                        }
+                                    }
+                                    if (imprimir == true) {
+                                        System.out.println(j);
+                                    }
+                                }
+                                System.out.println("");
+                                break;
+                            case 5:
                                 sel = true;
                                 break;
                             default:
