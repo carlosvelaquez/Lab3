@@ -187,7 +187,7 @@ public class Lab3_CarlosVelasquez {
                     System.out.println("[1] Comprar Jugador");
                     System.out.println("[2] Listar Jugadores de Equipo");
                     System.out.println("[3] Organizar Equipo");
-                    System.out.println("[4] Organizar Equipo");
+                    System.out.println("[4] Ver Formacion");
                     System.out.println("[5] Cambiar de Equipo");
                     System.out.println("[6] Regresar a Menú de Equipos");
                     System.out.print("\n¿Que desea hacer? - ");
